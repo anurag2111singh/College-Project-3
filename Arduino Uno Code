@@ -1,0 +1,24 @@
+int moisture_sensor = A0; // moisture sensor connected to analog pin A0
+int moisture_level ;
+
+void setup() {
+   pinMode(4,OUTPUT);
+   Serial.begin(9600);
+   Serial.println("Getting sensor reading");
+   delay(2000);
+}
+
+void loop() {
+   moisture_level= analogRead(moisture_sensor);
+   moisture_level = map(moisture_level,550,10,0,100);
+   Serial.print("Moisture level : ");
+   Serial.print(moisture_level);
+   Serial.println("%");
+   if(moisture_level<10){   // if moisture level is less than 10%
+      digitalWrite(4,HIGH); // turn on pump
+     }
+     else{
+      digitalWrite(4,LOW); // else no need to pump water
+     }
+   delay(1000); 
+}
